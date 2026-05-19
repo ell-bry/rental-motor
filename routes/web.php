@@ -45,7 +45,7 @@ Route::post('/payment/process/{id}', [RentalController::class, 'processPayment']
 
 
 // --- Bagian Area Admin ---
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin', 'log-admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
     Route::resource('motors', MotorController::class);
@@ -55,4 +55,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     
     // Halaman verifikasi pembayaran untuk Admin (Jangan gunakan payment.index)
     Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
+
+    // Admin Access Logs
+    Route::get('/access-logs', [App\Http\Controllers\AdminLogController::class, 'index'])->name('logs.index');
+    Route::get('/access-logs/{id}', [App\Http\Controllers\AdminLogController::class, 'show'])->name('logs.show');
+    Route::delete('/access-logs/{id}', [App\Http\Controllers\AdminLogController::class, 'destroy'])->name('logs.destroy');
+    Route::get('/access-logs-clear', [App\Http\Controllers\AdminLogController::class, 'clearOldLogs'])->name('logs.clear');
+    Route::get('/access-logs-export', [App\Http\Controllers\AdminLogController::class, 'export'])->name('logs.export');
 });

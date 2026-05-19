@@ -125,6 +125,10 @@
         <a href="{{ route('admin.payments.index') }}" class="{{ request()->routeIs('admin.payments') ? 'active' : '' }}">
             <i class="fa-solid fa-wallet"></i> <span>Pembayaran</span>
         </a>
+
+        <a href="{{ route('admin.logs.index') }}" class="{{ request()->routeIs('admin.logs.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-history"></i> <span>Log Akses</span>
+        </a>
     </div>
 
     <div class="position-absolute bottom-0 w-100 p-3">
